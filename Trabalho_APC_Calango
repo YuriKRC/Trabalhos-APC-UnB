@@ -1,0 +1,294 @@
+algoritmo trabalhoCalango_PedraPapelTesoura;
+// Síntese
+//  Objetivo: Construir um programa que seja um minigame virtual do tradicional e conhecido jogo de "Pedra, Papel, Tesoura", também conhecido como "Jankenpon" ou simplesmente "Jokenpô";
+//  Entrada : O usuário deverá inserir uma das opções, pedra, papel ou tesoura, à sua escolha;
+//  Saída   : A saída deverá ser o desfecho da disputa entre usuário e bot;
+// Aluno: Yuri Karim Rak Cunha;
+// Matrícula: 221008543;
+// Turma 02 - APC - 2022.1;
+
+principal
+	// Declarações
+	inteiro comeco, querContinuar, retorno, valorNumerico, valorBot;
+	inteiro placar[2];
+	texto jogada, pedra, papel, tesoura;	
+
+	// Instruções
+	inicio ();
+
+	placar[0] = 0;
+	placar[1] = 0;
+
+	leia(comeco);
+
+	enquanto(comeco != 1 e comeco != 2 e comeco != 3) faca
+		escreval("");
+		escreval("Por favor, selecione uma opção válida!");
+		escreval("");
+		leia(comeco);
+	fimEnquanto 
+	
+	se (comeco == 3) entao
+		escreval("");
+		escreval("Esse programa é uma forma virtual do jogo conhecido como Pedra, Papel, Tesoura. É um minigame no estilo 1x1, onde temos player x bot.	A cada rodada, será requisitado que você, usuário, faça sua escolha para a rodada, se será pedra, papel ou tesoura. Lembre-se que pedra quebra tesoura, tesoura corta papel e papel embrulha pedra. Após fazer sua escolha, será mostrada a escolha do seu adversário, e logo em seguida será exibido quem venceu a rodada. O jogo é de certa forma infinito, e os pontos serão contados por um placar, que será mostrado ao fim de cada rodada. Divirta-se!");
+		escreval("");
+		escreval("O que você deseja fazer?");
+		escreval("");
+		escreval("20 - Retornar ao menu principal");
+		escreval("");
+		leia(retorno);
+		enquanto (retorno != 20) faca
+			escreval("");
+			escreval("Por favor, selecione uma opção válida");
+			escreval("");
+			leia(retorno);
+		fimEnquanto
+		se (retorno == 20) entao
+			limpaTela ();
+			inicio ();
+			jogo ();
+		fimSe
+	senao
+		se (comeco == 1) entao
+			limpaTela ();
+			escreval("Está dada a largada para o início do jogo");
+			escreval("");
+			faca 
+				escreval("Faça sua jogada (Insira a primeira letra como maiúscula):");
+				leia(jogada);
+				papel = "Papel";
+				pedra = "Pedra";
+				tesoura = "Tesoura";
+				se (comparaTexto(jogada, papel) == 0) entao
+					valorNumerico = 1;
+				senao
+					se (comparaTexto(jogada, pedra) ==	0) entao
+						valorNumerico = 2;
+					senao
+						se (comparaTexto(jogada, tesoura) == 0) entao
+							valorNumerico = 0;
+						fimSe
+					fimSe
+				fimSe
+				valorBot = aleatorio(3);
+				se (valorBot == 1) entao
+					escreval("");
+					escreval("Bot escolheu Papel");
+					escreval("");
+				senao
+					se (valorBot == 2) entao
+						escreval("");
+						escreval("Bot escolheu Pedra");
+						escreval("");
+					senao
+						se (valorBot == 0) entao
+							escreval("");
+							escreval("Bot escolheu Tesoura");
+							escreval("");	
+						fimSe
+					fimSe
+				fimSe
+				se (valorBot == valorNumerico) entao
+					escreval("EMPATE!");
+					placar[0] = placar[0] + 0;
+					placar[1] = placar[1] + 0;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]); 
+				fimSe
+				se (valorBot == 0 e valorNumerico == 1) entao
+					escreval("QUE PENA, O BOT VENCEU!");
+					placar[0] = placar[0] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe 
+				se (valorBot == 0 e valorNumerico == 2) entao
+					escreval("PARABÉNS, VOCÊ VENCEU!");	
+					placar[1] = placar[1] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe
+				se (valorBot == 1 e valorNumerico == 0) entao
+					escreval("PARABÉNS, VOCÊ VENCEU!");
+					placar[1] = placar[1] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe
+				se (valorBot == 1 e valorNumerico == 2) entao
+					escreval("QUE PENA, O BOT VENCEU!");
+					placar[0] = placar[0] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe
+				se (valorBot == 2 e valorNumerico == 0) entao
+					escreval("QUE PENA, O BOT VENCEU!");
+					placar[0] = placar[0] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe
+				se (valorBot == 2 e valorNumerico == 1) entao
+					escreval("PARABÉNS, VOCÊ VENCEU!");
+					placar[1] = placar[1] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe
+				escreval("");
+				escreval("Você deseja continuar jogando?");
+				escreval("10 - Sim");
+				escreval("11 - Não");
+				escreval("");
+				leia(querContinuar);
+				limpaTela ();
+	        	se (querContinuar != 10 e querContinuar != 11) entao
+					escreval("Por favor, selecione uma opção válida!");
+					escreval("Você deseja continuar jogando?");
+					leia(querContinuar);
+				senao
+					se (querContinuar == 11) entao
+						limpaTela ();
+						escreval("Obrigado(a) por jogar! Volte sempre!");	
+					fimSe	
+	    		fimSe
+			enquanto (querContinuar == 10); 
+		fimSe
+	fimSe
+fimPrincipal
+
+procedimento inicio ()
+
+	//Instruções
+	escreval("Olá, seja muito bem-vindo(a) ao Pedra, Papel, Tesoura!");
+	escreval("");
+	escreval("O que você deseja fazer?");
+	escreval("");
+	escreval("1 - Iniciar o jogo");
+	escreval("2 - Encerrar o programa");
+	escreval("3 - Instruções de como jogar");
+	escreval("");
+	
+fimProcedimento
+
+procedimento jogo ()
+
+	//Declarações
+	inteiro comeco, querContinuar, retorno, valorNumerico, valorBot;
+	inteiro placar[2];
+	texto jogada, pedra, papel, tesoura;
+
+	//Instruções
+	leia(comeco);
+
+	placar[0] = 0;
+	placar[1] = 0;
+	
+	se (comeco == 3) entao
+		escreval("");
+		escreval("Esse programa é uma forma virtual do jogo conhecido como Pedra, Papel, Tesoura. É um minigame no estilo 1x1, onde temos player x bot.	A cada rodada, será requisitado que você, usuário, faça sua escolha para a rodada, se será pedra, papel ou tesoura. Lembre-se que pedra quebra tesoura, tesoura corta papel e papel embrulha pedra. Após fazer sua escolha, será mostrada a escolha do seu adversário, e logo em seguida será exibido quem venceu a rodada. O jogo é de certa forma infinito, e os pontos serão contados por um placar, que será mostrado ao fim de cada rodada. Divirta-se!");
+		escreval("");
+		escreval("O que você deseja fazer?");
+		escreval("");
+		escreval("20 - Retornar ao menu principal");
+		escreval("");
+		leia(retorno);
+		enquanto (retorno != 20) faca
+			escreval("");
+			escreval("Por favor, selecione uma opção válida");
+			escreval("");
+			leia(retorno);
+		fimEnquanto
+		se (retorno == 20) entao
+			limpaTela ();
+			inicio ();
+			jogo ();
+		fimSe
+	senao
+		se (comeco == 1) entao
+			limpaTela ();
+			escreval("Está dada a largada para o início do jogo");
+			escreval("");
+			faca 
+				escreval("Faça sua jogada (Insira a primeira letra como maiúscula):");
+				leia(jogada);
+				papel = "Papel";
+				pedra = "Pedra";
+				tesoura = "Tesoura";
+				se (comparaTexto(jogada, papel) == 0) entao
+					valorNumerico = 1;
+				senao
+					se (comparaTexto(jogada, pedra) ==	0) entao
+						valorNumerico = 2;
+					senao
+						se (comparaTexto(jogada, tesoura) == 0) entao
+							valorNumerico = 0;
+						fimSe
+					fimSe
+				fimSe
+				valorBot = aleatorio(3);
+				se (valorBot == 1) entao
+					escreval("");
+					escreval("Bot escolheu Papel");
+					escreval("");
+				senao
+					se (valorBot == 2) entao
+						escreval("");
+						escreval("Bot escolheu Pedra");
+						escreval("");
+					senao
+						se (valorBot == 0) entao
+							escreval("");
+							escreval("Bot escolheu Tesoura");
+							escreval("");	
+						fimSe
+					fimSe
+				fimSe
+				se (valorBot == valorNumerico) entao
+					escreval("EMPATE!");
+					placar[0] = placar[0] + 0;
+					placar[1] = placar[1] + 0;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);	
+				fimSe
+				se (valorBot == 0 e valorNumerico == 1) entao
+					escreval("QUE PENA, O BOT VENCEU!");
+					placar[0] = placar[0] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe 
+				se (valorBot == 0 e valorNumerico == 2) entao
+					escreval("PARABÉNS, VOCÊ VENCEU!");
+					placar[1] = placar[1] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);	
+				fimSe
+				se (valorBot == 1 e valorNumerico == 0) entao
+					escreval("PARABÉNS, VOCÊ VENCEU!");
+					placar[1] = placar[1] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe
+				se (valorBot == 1 e valorNumerico == 2) entao
+					escreval("QUE PENA, O BOT VENCEU!");
+					placar[0] = placar[0] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe
+				se (valorBot == 2 e valorNumerico == 0) entao
+					escreval("QUE PENA, O BOT VENCEU!");
+					placar[0] = placar[0] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe
+				se (valorBot == 2 e valorNumerico == 1) entao
+					escreval("PARABÉNS, VOCÊ VENCEU!");
+					placar[1] = placar[1] + 1;
+					escreval("PLACAR = " , "Bot: " , placar[0] ," x " , "Player: " , placar[1]);
+				fimSe
+				escreval("");
+				escreval("Você deseja continuar jogando?");
+				escreval("10 - Sim");
+				escreval("11 - Não");
+				leia(querContinuar);
+				limpaTela();
+	        	se (querContinuar != 10 e querContinuar != 11) entao
+					escreval("Por favor, selecione uma opção válida!");
+					escreval("Você deseja continuar jogando?");
+					leia(querContinuar);
+				senao
+					se (querContinuar == 11) entao
+						limpaTela ();
+						escreval("Obrigado(a) por jogar! Volte sempre!");
+					fimSe	
+	    		fimSe
+			enquanto (querContinuar == 10); 
+		fimSe
+	fimSe
+
+fimProcedimento
+
+
